@@ -1,9 +1,36 @@
 <?php
+require_once('couchsimple.php');
+require_once('config.php');
 
- $options['host'] = "localhost"; 
- $options['port'] = 5984;
+$couch = new CouchSimple($config); // See if we can make a connection
 
- $couch = new CouchSimple($options); // See if we can make a connection
+switch ($_GET['do']){
+    case 'register':
+         
+        if ( isset($_GET['site']) && isset($_GET['type']) ){
+            $id = date("YmdHis");
+            $fields['_id'] = $id;
+            $fields['date'] = date("Ymd");
+            foreach ($_GET as $param => $value){
+                if ($param != 'do')
+                    $fields[$param] = $value;
+            }
+            
+            // Create a new document in the database
+            $resp = $couch->send("PUT", "/" . $config['database'] ."/" . $id, json_encode($fields)); 
+            var_dump($resp);   
+        }
+        break;
+    case 'top_search':
+        top_search();
+        break;
+    
+}
+
+/*
+
+
+
  $resp = $couch->send("GET", "/"); 
  var_dump($resp); // response: string(46) "{"couchdb": "Welcome", "version": "0.7.0a553"}"
 
@@ -34,6 +61,6 @@
  // Delete our "test" database
  $resp = $couch->send("DELETE", "/test/"); 
  var_dump($resp); // string(12) "{"ok":true}"
-
+*/
  
 ?>
