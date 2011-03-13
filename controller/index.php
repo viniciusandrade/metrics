@@ -21,8 +21,9 @@ switch ($_GET['do']){
             var_dump($resp);   
         }
         break;
-    case 'top_search':
-        top_search();
+    case 'top_searchs':
+        $resp = $couch->send("GET", '/' . $config['database'] .'/_design/couchapp/_view/top_searchs?group=true&startkey=["20110312","oo"]&endkey=["20110312","oo","Z"]' ); 
+        var_dump($resp);
         break;
     
 }
