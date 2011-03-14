@@ -1,1 +1,18 @@
-Save site usage (search terms, pages visited, etc) on couchdb
+metrics
+========
+
+simple service to register site usage (search terms, pages visited, etc) on couchdb
+
+
+Requirements
+============
+
+1. couchdb
+
+2. couchapp
+
+    $ virtualenv --no-site-packages python-env
+    $ source python-env/bin/activate
+    $ pip install couchapp
+
+3. php for controller module
